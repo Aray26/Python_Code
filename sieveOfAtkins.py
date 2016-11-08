@@ -22,6 +22,11 @@ def sieveOfAtkin(limit):
     return P
 #total=0
 print sieveOfAtkin(2000000)
+
+#print sieveOfAtkin(10000000000)
+#10 000 000 000
+
 #total += sieveOfAtkin(2000000)
 total = sum(sieveOfAtkin(2000000))
+#total = sum(sieveOfAtkin(10000000000))
 print "total is " + str(total)

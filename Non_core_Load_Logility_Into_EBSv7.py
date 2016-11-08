@@ -10,16 +10,47 @@ from pandas import DataFrame
 import numpy as np
 from matplotlib import style
 
-filename = 'output.csv'
+output_filename = 'output.csv'
 
 #was w
-target = open(filename, 'wb')
+target = open(output_filename, 'wb')
+
+'''
+print "What is the name of the incoming file? "
+print "Just hit enter to use the default file name \"Incoming Forecast.xlsx\" "
+incoming_filename =raw_input()
+if (incoming_filename == ''):
+    print "Using default filename - \"Incoming Forecast.xlsx\" "
+else:
+    print "Filename is " + str(incoming_filename)
+    
+print "What is the name of the Forecast - i.e. 'CORE_FC' or 'NON_COREFC' ?"
+print "Name of the Forecast needs to be less than 8 characters"
+forecast =raw_input()
+print "Forecast us " + str(forecast)
+print "\n"
+
+print "what is the name of the Forecast Description ?"
+print "the current Forecast Description is " + str(str(incoming_filename).split('.'))
+print "Just hit enter to use the default file name \"Incoming Forecast.xlsx\" "
+forecast_description =raw_input()
+if (forecast_description == ''):
+    forecast_description = str(incoming_filename.split('.'))
+else:
+    print "forecast_description is " + str(forecast_description)
+print "\n"
+
+print "Let's sum up "
+print "Incoming file name is " + str(incoming_filename)
+print "Forecast name is " + str(forecast)
+print "Forecast Description is " + str(forecast_description)
+'''
 
 
 #excelData = pd.ExcelFile('Lindsey Done With Adjustments Altered.xlsx')
-#df = pd.read_excel('Lindsey Done With Adjustments Altered.xlsx', sheet_name='CIM 2016')
+#df = pd.read_excel('Lindsey Done With Adjustments Altered.xlsx', sheet_name='NONCORE')
 #df = pd.read_excel('CaseyG-CIM.xlsx', sheet_name='CIM 2016')
-df = pd.read_excel('new_logility_load.xlsx', sheet_name='Report 2')
+df = pd.read_excel('non_core_new_logility_load4.xlsx', sheet_name='NONCORE')
 
 index_of_columns = df.columns
 list = len(df.columns.tolist())
@@ -46,7 +77,7 @@ print (index_of_columns[-1])
 #for i in range(0, )
 
 #target.write("M,CORE_FORECAST,CORE_FORECAST_DESC,WEEKS,,30,30,NJW,N\n") #original   
-target.write("M,CORE_FC,CORE_FC_DESC,Weeks,30,30,NJW,N\r\n") #Extra space bug - 
+target.write("M,NONCORE_FC,NONCORE_FC_DESC,Days,365,365,NJW,N\r\n") #Extra space bug - 
 for x in range(1, length_of_columns):
       for i in range(0, length_of_rows):
             row_value = df.at[index_of_rows[i], index_of_columns[0]]
@@ -54,7 +85,12 @@ for x in range(1, length_of_columns):
             #date_value = date_value.strftime("%d-%b-%Y").upper()
             #date_value2 = str(date_value).split(' ')[0].upper()
             data_value = df.at[index_of_rows[i], index_of_columns[x]]
-            target.write("D,COREFCST,COREFCST_DESC,,"+str(row_value)+","+ str(date_value).upper()+","+ str(date_value).upper()+","+ str(data_value)+",N\r\n")
+            #target.write("D,NONCORE,AUG17,,"+str(row_value)+","+ str(date_value).upper()+",,"+ str(data_value)+",N\r\n")
+            #target.write("D,COREFCST,COREFCST_DESC,,"+str(row_value)+","+ str(date_value).upper()+","+ str(date_value).upper()+","+ str(data_value)+",N\r\n")
+            if not data_value or data_value == 0:
+               c=0#print "0 or null"
+            else:
+               target.write("D,NONCORE,AUG17,,"+str(row_value)+","+ str(date_value).upper()+",,"+ str(data_value)+",N\r\n")
 
 
 #date_value = date_value.split(' ')[0]
