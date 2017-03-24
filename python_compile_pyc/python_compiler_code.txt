@@ -1,0 +1,12 @@
+Step 1. create file abc.py
+print "hello world"
+
+Step 2. create python_compile.py
+import py_compile
+py_compile.compile('abc.py')
+
+Step 3. abc.pyc on command line
+
+Step 4. create file python_test_import_pyc.py
+import abc.pyc
+print "test"
